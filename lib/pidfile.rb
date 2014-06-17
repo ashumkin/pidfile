@@ -3,7 +3,7 @@ class PidFile
 
   class DuplicateProcessError < RuntimeError; end
 
-  VERSION = '0.3.0'
+  VERSION = '0.3.1'
 
   DEFAULT_OPTIONS = {
     :pidfile => File.basename($0, File.extname($0)) + ".pid",

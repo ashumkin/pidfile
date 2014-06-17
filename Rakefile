@@ -3,7 +3,11 @@ $:.unshift File.expand_path("../lib", __FILE__)
 require 'rubygems'
 require 'pidfile'
 require 'rake/testtask'
-require 'rake/gempackagetask'
+begin
+  require 'rake/gempackagetask'
+rescue
+  require 'rubygems/package_task'
+end
  
 lib_dir = File.expand_path('lib')
 test_dir = File.expand_path('test')
@@ -35,9 +39,16 @@ Rake::TestTask.new(:test) do |test|
   test.verbose = true
 end
 
-Rake::GemPackageTask.new(gem_spec) do |pkg|
-  pkg.need_zip = false
-  pkg.need_tar = false
+begin
+  Rake::GemPackageTask.new(gem_spec) do |pkg|
+    pkg.need_zip = false
+    pkg.need_tar = false
+  end
+rescue
+  Gem::PackageTask.new(gem_spec) do |pkg|
+    pkg.need_zip = false
+    pkg.need_tar = false
+  end
 end
 
 desc "Install the gem locally"
