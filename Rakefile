@@ -1,7 +1,7 @@
 $:.unshift File.expand_path("../lib", __FILE__)
 
 require 'rubygems'
-require 'lib/pidfile'
+require 'pidfile'
 require 'rake/testtask'
 require 'rake/gempackagetask'
  
